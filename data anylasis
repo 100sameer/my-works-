@@ -1,0 +1,44 @@
+!pip install pandas
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+data =pd.read_csv('/content/sample_data/netflix_titles (1).csv')
+data
+
+#Quick overview of the data
+
+data.info()
+
+#Data cleaning
+data['director'] = data['director'].fillna("Unknown director")
+#Converting date column in datetime
+data['date_added'] = pd.to_datetime(data['date_added'], format='mixed', errors='coerce')
+display(data.head())
+
+#EDA
+#Exploratory data analysis
+#I want to see the distribution of movies and tv showWS
+type_count = data['type'].value_counts()
+sns.barplot(x = data['type'])
+
+#EDA - Exploratory data analysis
+
+#I want to see the distribution of movies and tv shows
+type_count = data['type'].value_counts()
+type_count
+
+#sns.barplot(x = data['type'])
+
+type_count
+sns.countplot(x = 'type', data = data)
+
+#Movie rating analysis
+plt.figure(figsize = (10,8))
+sns.countplot(x = 'rating', data= data, palette = "Set2")
+
+#Movie rating analysis
+plt.figure(figsize = (10,8))
+sns.countplot(x = 'rating', data= data, palette = "Set2", order = data['rating'].value_counts().index [0:15])
+
+plt.figure(figsize = (20,8))
+sns.countplot(x = 'country', data= data, palette = "Set2", order = data['country'].value_counts().index [0:15])
